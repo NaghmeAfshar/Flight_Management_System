@@ -1,0 +1,449 @@
+﻿<Window x:Class="FlightsManagementProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="System.Data.DataSet"
+        Height="645" Width="1000" ResizeMode="NoResize" Icon="Airplane.ico"
+       FontFamily="B Homa" FlowDirection="RightToLeft" Title="سامانه مدیریت پرواز" WindowStartupLocation="CenterScreen" >
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+        
+        
+        <Style TargetType="TabItem">
+            <Setter Property="Padding" Value="13,2,20,2" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="80" />
+            <Setter Property="Height" Value="30"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Width" Value="130" />
+            <Setter Property="Height" Value="30"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Height" Value="30"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Width" Value="130" />
+            <Setter Property="Height" Value="30"/>
+        </Style>
+    </Window.Resources>
+    <TabControl   HorizontalAlignment="Stretch" Name="tabControl1"  VerticalAlignment="Stretch" SelectionChanged="tabControl1_SelectionChanged">
+            <TabControl.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="LightGray"  Offset="0.0" />
+                    <GradientStop Color="SkyBlue" Offset="0.6" />
+                    <GradientStop Color="Gray" Offset="1" />
+                </LinearGradientBrush>
+            </TabControl.Background>
+        <TabItem Name="FlightsTab" Header="پروازها" Visibility="{Binding Path=Access[50], Converter={StaticResource BoolToVisConverter}}">
+            <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <DataGrid SelectedValuePath="ID" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" Height="477" HorizontalAlignment="Left" Margin="260,76,0,0" Name="Flights_Grid" VerticalAlignment="Top" Width="714" SelectionMode="Single" SelectionChanged="Flights_Grid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="شماره پرواز" IsReadOnly="True" Binding="{Binding FID}"/>
+                        <DataGridTextColumn Header="زمان پرواز" IsReadOnly="True" Binding="{Binding SchDTFlight}"/>
+                        <DataGridTextColumn Header="زمان واقعی پرواز" IsReadOnly="True" Binding="{Binding DTflight}"/>
+                        <DataGridTextColumn Header="هواپیما" IsReadOnly="True" Binding="{Binding Airplane}"/>
+                        <DataGridTextColumn Header="بهره بردار" IsReadOnly="True" Binding="{Binding Beneficiary}"/>
+                        <DataGridTextColumn Header="مقصد" IsReadOnly="True" Binding="{Binding Destination}"/>
+                        <DataGridTextColumn Header="مبدا" IsReadOnly="True" Binding="{Binding Begining}"/>
+                        <DataGridTextColumn Header="مسیر" IsReadOnly="True" Binding="{Binding Route}"/>
+
+                        <DataGridCheckBoxColumn Header="محلی" IsReadOnly="True" Binding="{Binding isLocal}"/>
+                        <DataGridCheckBoxColumn Header="چارتر" IsReadOnly="True" Binding="{Binding isCharter}"/>
+                        <DataGridCheckBoxColumn Header="برنامه ریزی شده" IsReadOnly="True" Binding="{Binding isSCheduled}"/>
+                        <DataGridTextColumn Header="تعداد مسافران" IsReadOnly="True" Binding="{Binding Passengers}"/>
+                        <DataGridCheckBoxColumn Header="تلسکوپی" IsReadOnly="True" Binding="{Binding Telescope}"/>
+                        <DataGridTextColumn Header="مقدار بار" IsReadOnly="True" Binding="{Binding TotalLoadCarried}"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                    <GroupBox Header="پرواز" Margin="0,-7,721,76" Width="245">
+                        <Grid DataContext="{Binding ElementName=Flights_Grid, Path=SelectedItem}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="91" />
+                            <ColumnDefinition Width="139" />
+                            <ColumnDefinition Width="17" />
+                            <ColumnDefinition Width="3*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Content="شماره پرواز" HorizontalAlignment="Left" Margin="5,14,0,0" Name="label1" VerticalAlignment="Top" />
+                <TextBox Text="{Binding Path=FID,Mode=OneWay}" HorizontalAlignment="Left" Margin="12,14,0,0" Name="Flights_FID" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2" />
+                <Label Content="زمان پرواز" HorizontalAlignment="Left" Margin="5,47,0,0" Name="label2" VerticalAlignment="Top" />
+                <TextBox Text="{Binding Path=SchDTFlight,Mode=OneWay}" HorizontalAlignment="Left" Margin="12,47,0,0" Name="Flights_SchDTFlight" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2" />
+                <Label Content="تعداد مسافر کودک" HorizontalAlignment="Left" Margin="3,310,0,0" Name="label3" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                <TextBox Text="{Binding Path=Childs,Mode=OneWay}" IsEnabled="False" HorizontalAlignment="Left" Margin="8,310,0,0" Name="Flights_Childs" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2" />
+                <Label Content="تعداد مسافر نوجوان" HorizontalAlignment="Left" Margin="3,344,0,0" Name="label4" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                <TextBox Text="{Binding Path=Infants,Mode=OneWay}" IsEnabled="False" HorizontalAlignment="Left" Margin="8,344,0,0" Name="Flights_Infants" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2" />
+                <Label Content="حجم سوخت" HorizontalAlignment="Left" Margin="5,81,0,0" Name="label5" VerticalAlignment="Top" />
+                <TextBox Text="{Binding Path=Adults,Mode=OneWay}" IsEnabled="False" HorizontalAlignment="Left" Margin="8,380,0,0" Name="Flights_Adults" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2" />
+                <Label Content="تعداد مسافر بزرگسال" HorizontalAlignment="Left" Margin="3,380,0,0" Name="label6" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                <TextBox Text="{Binding Path=Fuel_Volume,Mode=OneWay}" HorizontalAlignment="Left" Margin="12,81,0,0" Name="Flights_FuelVolume" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2" />
+                <Label Content="هواپیما" HorizontalAlignment="Left" Margin="5,115,0,0" Name="label7" VerticalAlignment="Top" />
+                <Label Content="بهره بردار" HorizontalAlignment="Left" Margin="10,149,0,0" Name="label8" VerticalAlignment="Top" />
+                <Label Content="مسیر" HorizontalAlignment="Left" Margin="5,217,0,0" Name="label10" VerticalAlignment="Top" />
+                <Label Content="مقدار بار" HorizontalAlignment="Left" Margin="3,277,0,0" Name="label12" VerticalAlignment="Top" />
+                <TextBox Text="{Binding Path=TotalLoadCarried,Mode=OneWay}" IsEnabled="False" HorizontalAlignment="Left" Margin="8,277,0,0" Name="Flights_Load" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2" />
+                <ComboBox SelectedValue="{Binding Path=Airplane,Mode=OneWay}" SelectedValuePath="Register" DisplayMemberPath="Register" DropDownOpened="Flights_AirplaneCombo_DropDownOpened"  HorizontalAlignment="Left" Margin="12,115,0,0" Name="Flights_AirplaneCombo" VerticalAlignment="Top" SelectionChanged="Flights_AirplaneCombo_SelectionChanged" Grid.Column="1" Grid.ColumnSpan="2" />
+                <ComboBox  SelectedValuePath="Code3" DisplayMemberPath="Pers_Name" IsEnabled="False" HorizontalAlignment="Left" Margin="12,149,0,0" Name="Flights_BeneficiaryCombo" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2" />
+                <ComboBox SelectedValue="{Binding Path=DestinationID,Mode=OneWay}" SelectedValuePath="Code3" DisplayMemberPath="Pers_Name" DropDownOpened="Flights_DestORBeginCombo_DropDownOpened" HorizontalAlignment="Left" Margin="12,183,0,0" Name="Flights_DestORBeginCombo" VerticalAlignment="Top" SelectionChanged="Flights_DestORBeginCombo_SelectionChanged" Grid.Column="1" Grid.ColumnSpan="2" />
+                <ComboBox  SelectedValuePath="ID" IsEnabled="False" HorizontalAlignment="Left" Margin="12,217,0,0" Name="Flights_RouteCombo" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{Binding Path=Name}"/>
+                                <Label Content=" مسافت: "></Label>
+                                <Label Content="{Binding Path=Distance}"></Label>
+                                <Label Content="Km"></Label>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <CheckBox IsChecked="{Binding Path=isSCheduled,Mode=OneWay}" Content="برنامه ریزی شده" HorizontalAlignment="Left" Margin="86,449,0,0" Name="Flights_isScheduledCheck" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                <CheckBox IsChecked="{Binding Path=isLocal,Mode=OneWay}" Content="محلی" HorizontalAlignment="Left" Margin="1,449,0,0" Name="Flights_isLocalCheck" VerticalAlignment="Top" />
+                <CheckBox IsChecked="{Binding Path=isCharter,Mode=OneWay}" Content="چارتر" HorizontalAlignment="Left" Margin="45,449,0,0" Name="Flights_isCharterCheck" VerticalAlignment="Top" />
+                <CheckBox IsEnabled="False" Content="تلسکوپی" HorizontalAlignment="Left" IsChecked="{Binding Path=Telescope, Mode=OneWay}" Margin="85,449,0,0" Name="flights_telescopeCheck" VerticalAlignment="Top" Grid.Column="1" />
+                <RadioButton Content="غیره" GroupName="FlightGroup2" HorizontalAlignment="Left" IsChecked="True" Margin="63,251,0,0" Name="Flights_OthersRadio" VerticalAlignment="Top"  Checked="Flights_OthersRadio_Checked" Grid.Column="1" />
+                <RadioButton Content="مسافرتی" GroupName="FlightGroup2" HorizontalAlignment="Left" Margin="46,251,0,0" Name="Flights_PassengerRadio" VerticalAlignment="Top"  Checked="Flights_PassengerRadio_Checked" Grid.ColumnSpan="2" />
+                        <RadioButton Content="باری" GroupName="FlightGroup2" HorizontalAlignment="Left" Margin="17,251,0,194" Name="Flights_CargoRadio"  Checked="Flights_CargoRadio_Checked" Grid.Column="1" Height="22" VerticalAlignment="Top" />
+                <RadioButton Checked="Flights_DestinationRadio_Checked" IsChecked="True" Content="مقصد" GroupName="FlightGroup3" HorizontalAlignment="Left" Margin="5,191,0,0" Name="Flights_DestinationRadio" VerticalAlignment="Top" />
+                <RadioButton Checked="Flights_BeginingRadio_Checked" Content="مبدا" GroupName="FlightGroup3" HorizontalAlignment="Left" Margin="58,191,0,0" Name="Flights_BeginingRadio" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+
+                    <Label Content="زمان واقعی پرواز" HorizontalAlignment="Left" Margin="3,414,0,0" Name="label44" VerticalAlignment="Top" />
+                    <TextBox Text="{Binding Path=DTflight,Mode=OneWay}" HorizontalAlignment="Left" Margin="8,414,0,0" Name="flights_DTflight" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2" />
+                         </Grid>
+                    </GroupBox>
+                <RadioButton Content="همه" GroupName="FlightGroup" HorizontalAlignment="Right" Margin="0,30,254,0" Name="flights_AllQueryRadio" VerticalAlignment="Top" />
+                <RadioButton IsChecked="True"  Content="مسافرتی" GroupName="FlightGroup" HorizontalAlignment="Right" Margin="0,30,343,0" Name="flights_PassengerQueryRadio" VerticalAlignment="Top" />
+                <RadioButton Content="باری" GroupName="FlightGroup" HorizontalAlignment="Right" Margin="0,30,440,0" Name="flights_CargoQueryRadio" VerticalAlignment="Top" />
+                <Button Content="تازه کردن" HorizontalAlignment="Right" Margin="0,26,122,0" Name="Flights_Refresh" VerticalAlignment="Top" Click="Flights_Refresh_Click" />
+
+                <Button Visibility="{Binding Path=Access[52], Converter={StaticResource BoolToVisConverter}}" IsEnabled="False" Content="تاخیرها" HorizontalAlignment="left" Margin="120,540,0,0" Name="Flights_DelayButton" VerticalAlignment="Top" Click="Flights_DelayButton_Click" />
+
+                <Button Content="افزودن" Visibility="{Binding Path=Access[0], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left"  Margin="120,504,0,0" Name="Flights_add" VerticalAlignment="Top" Click="Flights_add_Click" />
+                    <Button Content="حذف" Visibility="{Binding Path=Access[1], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" IsEnabled="False" Margin="38,504,0,0" Name="Flights_delete" VerticalAlignment="Top" Click="Flights_delete_Click" />
+                    <Button IsEnabled="False" Visibility="{Binding Path=Access[2], Converter={StaticResource BoolToVisConverter}}" Content="به روز رسانی" HorizontalAlignment="Left" Margin="38,540,0,0" Name="Flights_Update" VerticalAlignment="Top" Click="Flights_Update_Click" />
+                
+            </Grid>
+        </TabItem>
+        <TabItem  Name="AdminTab" Visibility="{Binding Path=Access[65], Converter={StaticResource BoolToVisConverter}}">
+                <TabItem.Header>
+                    مدیریت سیستم
+                </TabItem.Header>
+                <Grid Height="538" Width="745" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="277*" />
+                        <ColumnDefinition Width="457*" />
+                    </Grid.ColumnDefinitions>
+                <GroupBox Header="انواع کاربرد هواپیماها" Visibility="{Binding Path=Access[53], Converter={StaticResource BoolToVisConverter}}" Name="groupBox2" Margin="6,6,0,284" HorizontalAlignment="Left" Width="233">
+                    <Grid Height="191" Width="218" >
+                        <ComboBox   DisplayMemberPath="Name" SelectedValuePath="ID" SelectedIndex="0" HorizontalAlignment="Left" Margin="70,45,0,0" Name="Admin_AirplaneUsageCombo" VerticalAlignment="Top" DropDownOpened="Admin_AirplaneUsageCombo_DropDownOpened" />
+                            <Label Content="نوع کاربرد"  HorizontalAlignment="Left" Margin="14,45,0,0" Name="label24" VerticalAlignment="Top" />
+                        <Button Visibility="{Binding Path=Access[10], Converter={StaticResource BoolToVisConverter}}" Content="افزودن" HorizontalAlignment="Left" Margin="108,107,0,54" Name="Admin_AirplaneUsageAdd"  VerticalAlignment="Top" Click="Admin_AirplaneUsageAdd_Click" />
+                        <Button Visibility="{Binding Path=Access[9], Converter={StaticResource BoolToVisConverter}}" Content="حذف"  HorizontalAlignment="Left" Margin="26,107,0,0" Name="Admin_AirplaneUsageDelete" VerticalAlignment="Top" Click="Admin_AirplaneUsageDelete_Click" />
+                        <Button Visibility="{Binding Path=Access[11], Converter={StaticResource BoolToVisConverter}}" Content="به روز رسانی" HorizontalAlignment="Left" Margin="64,140,0,21" Name="Admin_AirplaneUsageUpdate"  VerticalAlignment="Top" Click="Admin_AirplaneUsageUpdate_Click" />
+                        </Grid>
+                    </GroupBox>
+                <GroupBox Header="انواع شرکت های هواپیمایی" Visibility="{Binding Path=Access[54], Converter={StaticResource BoolToVisConverter}}"  HorizontalAlignment="Left" Margin="249,6,0,284" Name="groupBox3" Width="233" Grid.ColumnSpan="2">
+                        <Grid Height="191" Width="218" >
+                        <ComboBox SelectedIndex="0" DropDownOpened="Admin_AirlineTypeCombo_DropDownOpened"  DisplayMemberPath="Name" SelectedValuePath="ID" HorizontalAlignment="Left" Margin="72,45,0,0" Name="Admin_AirlineTypeCombo" VerticalAlignment="Top" />
+                        <Label Content="نوع شرکت"  HorizontalAlignment="Left" Margin="16,45,0,0" Name="label25" VerticalAlignment="Top" />
+                        <Button Content="افزودن" Visibility="{Binding Path=Access[13], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="110,107,0,54" Name="Admin_AirlineTypeAdd" Click="Admin_AirlineTypeAdd_Click" />
+                        <Button Content="حذف" Visibility="{Binding Path=Access[12], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="28,107,0,0" Name="Admin_AirlineTypeDelete" VerticalAlignment="Top" Click="Admin_AirlineTypeDelete_Click" />
+                        <Button Content="به روز رسانی"  Visibility="{Binding Path=Access[14], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="66,140,0,21" Name="Admin_AirlineTypeUpdate" Click="Admin_AirlineTypeUpdate_Click" />
+                    </Grid>
+                    </GroupBox>
+                <GroupBox  Header="انواع فرودگاه ها" Visibility="{Binding Path=Access[55], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="207,6,0,284" Name="groupBox4" Width="233" Grid.Column="1">
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <ComboBox SelectedIndex="0" DropDownOpened="Admin_AirportTypeCombo_DropDownOpened" DisplayMemberPath="Name" SelectedValuePath="ID" HorizontalAlignment="Left" Margin="75,59,0,0" Name="Admin_AirportTypeCombo" VerticalAlignment="Top" />
+                        <Label Content="نوع فرودگاه"  HorizontalAlignment="Left" Margin="19,59,0,0" Name="label26" VerticalAlignment="Top" />
+                        <Button Content="افزودن" Visibility="{Binding Path=Access[16], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="113,121,0,68" Name="Admin_AirportTypeAdd" Click="Admin_AirportTypeAdd_Click" />
+                        <Button Content="حذف" Visibility="{Binding Path=Access[15], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="31,121,0,0" Name="Admin_AirportTypeDelete" VerticalAlignment="Top" Click="Admin_AirportTypeDelete_Click" />
+                        <Button Content="به روز رسانی" Visibility="{Binding Path=Access[17], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="69,154,0,35" Name="Admin_AirportTypeUpdate" Click="Admin_AirportTypeUpdate_Click" />
+                    </Grid>
+                    </GroupBox>
+                <GroupBox Header="شهرها" Visibility="{Binding Path=Access[57], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="247,271,0,19" Name="groupBox5" Width="233" Grid.ColumnSpan="2">
+                        <Grid Height="191" Width="218">
+                        <ComboBox SelectedIndex="0" DropDownOpened="Admin_CityCombo_DropDownOpened" DisplayMemberPath="Name" SelectedValuePath="ID" HorizontalAlignment="Left" Margin="69,42,0,0" Name="Admin_CityCombo" VerticalAlignment="Top" />
+                        <Label Content="شهر"  HorizontalAlignment="Left" Margin="22,42,0,0" Name="label27" VerticalAlignment="Top" />
+                        <Button Content="افزودن" Visibility="{Binding Path=Access[22], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="107,104,0,57" Name="Admin_CityAdd" Click="Admin_CityAdd_Click" />
+                        <Button Content="حذف" Visibility="{Binding Path=Access[21], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="25,104,0,0" Name="Admin_CityDelete" VerticalAlignment="Top" Click="Admin_CityDelete_Click" />
+                        <Button Content="به روز رسانی" Visibility="{Binding Path=Access[23], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="63,137,0,24" Name="Admin_CityUpdate" Click="Admin_CityUpdate_Click" />
+                    </Grid>
+                    </GroupBox>
+                <GroupBox Header="کشورها" Visibility="{Binding Path=Access[58], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="207,271,0,18" Name="groupBox6" Width="233" Grid.Column="1">
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <ComboBox DropDownOpened="Admin_CountryCombo_DropDownOpened" DisplayMemberPath="Name" SelectedValuePath="ID" SelectedIndex="0" HorizontalAlignment="Left" Margin="78,56,0,0" Name="Admin_CountryCombo" VerticalAlignment="Top" />
+                        <Label Content="کشور"  HorizontalAlignment="Left" Margin="27,56,0,0" Name="label28" VerticalAlignment="Top" />
+                        <Button Content="افزودن" Visibility="{Binding Path=Access[25], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="116,118,0,72" Name="Admin_CountryAdd" Click="Admin_CountryAdd_Click" />
+                        <Button Content="حذف" Visibility="{Binding Path=Access[24], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="34,118,0,0" Name="Admin_CountryDelete" VerticalAlignment="Top" Click="Admin_CountryDelete_Click" />
+                        <Button Content="به روز رسانی" Visibility="{Binding Path=Access[26], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="72,151,0,39" Name="Admin_CountryUpdate" Click="Admin_CountryUpdate_Click" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="علل تاخیر" Visibility="{Binding Path=Access[56], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="6,272,0,18" Name="groupBox8" Width="233">
+                    <Grid Height="191" Width="218">
+                        <ComboBox SelectedIndex="0"  DropDownOpened="Admin_DelayTypeCombo_DropDownOpened" DisplayMemberPath="Name" SelectedValuePath="ID" HorizontalAlignment="Left" Margin="69,42,0,0" Name="Admin_DelayTypeCombo" VerticalAlignment="Top" />
+                        <Label Content="علت" HorizontalAlignment="Left" Margin="22,42,0,0" Name="label11" VerticalAlignment="Top" />
+                        <Button Content="افزودن" Visibility="{Binding Path=Access[19], Converter={StaticResource BoolToVisConverter}}"  HorizontalAlignment="Left" Margin="107,104,0,57" Name="Admin_DelayTypeAdd" Click="Admin_DelayTypeAdd_Click" />
+                        <Button Content="حذف" Visibility="{Binding Path=Access[18], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="25,104,0,0" Name="Admin_DelayTypeDelete" VerticalAlignment="Top" Click="Admin_DelayTypeDelete_Click" />
+                        <Button Content="به روز رسانی" Visibility="{Binding Path=Access[20], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="63,137,0,24" Name="Admin_DelayTypeUpdate" Click="Admin_DelayTypeUpdate_Click" />
+                    </Grid>
+                </GroupBox>
+            </Grid>
+            </TabItem>
+        <TabItem Header="کاربران" Name="UsersTab" Visibility="{Binding Path=Access[59], Converter={StaticResource BoolToVisConverter}}">
+            <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="319*" />
+                        <ColumnDefinition Width="649*" />
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="کاربر" Width="241" Height="324" HorizontalAlignment="Left" Margin="8,5,0,0" Name="groupBox7" VerticalAlignment="Top" >
+                    <Grid DataContext="{Binding ElementName=Users_Grid, Path=SelectedItem}" Width="227">
+                        <Label Content="نام کاربری"  HorizontalAlignment="Left" Margin="10,98,0,0" Name="label29" VerticalAlignment="Top" />
+                        <Label Content="رمز عبور"  HorizontalAlignment="Left" Margin="10,132,0,0" Name="label30" VerticalAlignment="Top" />
+                        <Label Content="شماره تماس"  HorizontalAlignment="Left" Margin="10,169,0,285" Name="label31" />
+                        <Label Content="نوع کاربر"  HorizontalAlignment="Left" Margin="10,207,0,0" Name="label33" VerticalAlignment="Top" />
+                        <Label Content="فرودگاه محل کار"  HorizontalAlignment="Left" Margin="10,241,0,0" Name="label34" VerticalAlignment="Top" />
+                        
+                        <Label Content="نام"  HorizontalAlignment="Left" Margin="10,29,0,0" Name="label32" VerticalAlignment="Top" />
+                        <Label Content="نام خانوادگی"  HorizontalAlignment="Left" Margin="10,62,0,0" Name="label35" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding Path=Fname,Mode=OneWay}" HorizontalAlignment="Left" Margin="89,29,0,0" Name="Users_fName" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding Path=Lname,Mode=OneWay}" HorizontalAlignment="Left" Margin="89,62,0,0" Name="Users_lname" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding Path=username,Mode=OneWay}" HorizontalAlignment="Left" Margin="89,98,0,0" Name="Users_username" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding Path=Password,Mode=OneWay}" HorizontalAlignment="Left" Margin="89,134,0,0" Name="Users_password" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding Path=Phone,Mode=OneWay}" HorizontalAlignment="Left" Margin="89,171,0,0" Name="Users_phone" VerticalAlignment="Top" />
+                        <ComboBox SelectedValue="{Binding Path=TypeID,Mode=OneWay}" DropDownOpened="Users_userTypeCombo_DropDownOpened" DisplayMemberPath="Name" SelectedValuePath="ID"  HorizontalAlignment="Left" Margin="89,207,0,0" Name="Users_userTypeCombo" VerticalAlignment="Top"  />
+                        <ComboBox SelectedValue="{Binding Path=AirportID,Mode=OneWay}" DropDownOpened="Users_airportCombo_DropDownOpened" DisplayMemberPath="Code3" SelectedValuePath="Code3" HorizontalAlignment="Left" Margin="89,241,0,0" Name="Users_airportCombo" VerticalAlignment="Top"  />
+                    </Grid>
+                </GroupBox>
+                <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" SelectedValuePath="ID" AutoGenerateColumns="False" Height="500" HorizontalAlignment="Left" Margin="10,10,0,0" Name="Users_Grid" VerticalAlignment="Top" Width="484" SelectionMode="Single" Grid.Column="1">
+                        <DataGrid.Columns>
+                        <DataGridTextColumn Header="نام کاربری" IsReadOnly="True" Binding="{Binding username}" />
+                        <DataGridTextColumn Header="رمز عبور" IsReadOnly="True" Binding="{Binding Password}"/>
+                        <DataGridTextColumn Header="نام" IsReadOnly="True" Binding="{Binding Fname}"/>
+                        <DataGridTextColumn Header="نام خانوادگی" IsReadOnly="True" Binding="{Binding Lname}"/>
+                        <DataGridTextColumn Header="شماره تماس" IsReadOnly="True" Binding="{Binding Phone}"/>
+                        <DataGridTextColumn Header="فرودگاه محل کار" IsReadOnly="True" Binding="{Binding Airport}"/>
+                        <DataGridTextColumn Header="نوع کاربر" IsReadOnly="True" Binding="{Binding Type}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                <Button Content="افزودن" Visibility="{Binding Path=Access[28], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="143,360,0,0" Name="Users_Add" VerticalAlignment="Top" Click="Users_Add_Click" />
+                <Button Content="حذف" Visibility="{Binding Path=Access[27], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="61,360,0,0" Name="Users_Delete" VerticalAlignment="Top" Click="Users_Delete_Click" />
+                <Button Content="به روز رسانی" Visibility="{Binding Path=Access[29], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="99,393,0,0" Name="Users_Update" VerticalAlignment="Top" Click="Users_Update_Click" />
+                <Button Content="تازه کردن" Visibility="{Binding Path=Access[30], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="99,429,0,0" Name="Users_Refresh" VerticalAlignment="Top" Click="Users_Refresh_Click" />
+            </Grid>
+            </TabItem>
+        <TabItem Header="کنترل سطوح دسترسی" Name="AccessControlTab" Visibility="{Binding Path=Access[60], Converter={StaticResource BoolToVisConverter}}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="335*" />
+                        <ColumnDefinition Width="399*" />
+                    </Grid.ColumnDefinitions>
+                <TreeView ItemsSource="{Binding Path=TreeNodes}" Height="393" HorizontalAlignment="Left" Margin="366,29,0,0" Name="AccessControl_tree" VerticalAlignment="Top" Width="371" Grid.ColumnSpan="2" >
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding childs}">
+                            <CheckBox Content="{Binding text}" IsChecked="{Binding check,Mode=TwoWay}"/>
+                            <HierarchicalDataTemplate.ItemTemplate>
+                                <DataTemplate>
+                                    <CheckBox Content="{Binding text}" IsChecked="{Binding check,Mode=TwoWay}"/>
+                                </DataTemplate>
+                            </HierarchicalDataTemplate.ItemTemplate>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+
+                </TreeView> 
+                    
+                <GroupBox Header="انواع کاربران" Height="157" HorizontalAlignment="Left" Margin="6,6,0,0" Name="groupBox1" VerticalAlignment="Top" Width="320" Grid.ColumnSpan="2">
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <ComboBox SelectedIndex="0" DisplayMemberPath="Name" SelectedValuePath="ID" DropDownOpened="AccessControl_UserTypeCombo_DropDownOpened" HorizontalAlignment="Left" Margin="121,10,0,0" Name="AccessControl_UserTypeCombo" VerticalAlignment="Top" SelectionChanged="AccessControl_UserTypeCombo_SelectionChanged" />
+                            <Label Content="نوع کاربر"  HorizontalAlignment="Left" Margin="60,10,0,0" Name="label9" VerticalAlignment="Top" />
+                        <Button Content="اعمال تغییرات" Visibility="{Binding Path=Access[33], Converter={StaticResource BoolToVisConverter}}"  HorizontalAlignment="Right" Margin="0,75,23,0" Name="AccessControl_Update" VerticalAlignment="Top" Click="AccessControl_Update_Click" />
+                        <Button Content="افزودن" Visibility="{Binding Path=Access[32], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="114,75,0,23" Name="AccessControl_Add" Click="AccessControl_Add_Click" />
+                        <Button Content="حذف" Visibility="{Binding Path=Access[31], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="24,75,0,0" Name="AccessControl_Delete" VerticalAlignment="Top" Click="AccessControl_Delete_Click" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        <TabItem Header="فرودگاه" Name="AirportsTab" Visibility="{Binding Path=Access[61], Converter={StaticResource BoolToVisConverter}}">
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="312*" />
+                    <ColumnDefinition Width="656*" />
+                </Grid.ColumnDefinitions>
+                <GroupBox Header="فرودگاه" Margin="0,0,0,255" Width="240" HorizontalAlignment="Left">
+                    <Grid DataContext="{Binding ElementName=Airports_Grid, Path=SelectedItem}">
+                <TextBox Text="{Binding Path=Code3,Mode=OneWay}" HorizontalAlignment="Left" Margin="88,33,0,0" Name="Airports_Code3" VerticalAlignment="Top"  />
+                <Label Content="کد 3 رقمی"  HorizontalAlignment="Left" Margin="10,33,0,0" Name="label210" VerticalAlignment="Top" />
+                <TextBox Text="{Binding Path=Code4,Mode=OneWay}" HorizontalAlignment="Left" Margin="87,71,0,0" Name="Airports_Code4" VerticalAlignment="Top"  />
+                <TextBox Text="{Binding Path=Pers_Name,Mode=OneWay}" HorizontalAlignment="Left" Margin="87,109,0,0" Name="Airports_Persname" VerticalAlignment="Top"  />
+                <TextBox Text="{Binding Path=Eng_Name,Mode=OneWay}" HorizontalAlignment="Left" Margin="87,147,0,0" Name="Airports_Engname" VerticalAlignment="Top"  />
+                <Label Content="کد 4 رقمی "  HorizontalAlignment="Left" Margin="10,71,0,0" Name="l1abel2" VerticalAlignment="Top" />
+                <Label Content="نام فارسی"  HorizontalAlignment="Left" Margin="10,109,0,0" Name="l1abel3" VerticalAlignment="Top" />
+                <Label Content="نام انگلیسی"  HorizontalAlignment="Left" Margin="10,147,0,0" Name="l1abel4" VerticalAlignment="Top" />
+                <ComboBox SelectedIndex="0" SelectedValue="{Binding Path=CityID,Mode=OneWay}" DropDownOpened="Airports_AirportTypeCombo_DropDownOpened" DisplayMemberPath="Name" SelectedValuePath="ID"   HorizontalAlignment="Left" Margin="87,187,0,0" Name="Airports_CityCombo" VerticalAlignment="Top"  />
+                <ComboBox SelectedIndex="0" SelectedValue="{Binding Path=TypeID,Mode=OneWay}" DropDownOpened="Airports_CityCombo_DropDownOpened" DisplayMemberPath="Name" SelectedValuePath="ID"  HorizontalAlignment="Left" Margin="87,223,0,0" Name="Airports_AirportTypeCombo" VerticalAlignment="Top"  />
+                <Label Content="شهر"  HorizontalAlignment="Left" Margin="10,185,0,0" Name="l1abel5" VerticalAlignment="Top"  />
+                
+                <Label Content="نوع فرودگاه" HorizontalAlignment="Left" Margin="10,223,0,0" Name="l1abel6" VerticalAlignment="Top" />
+                    </Grid>
+                </GroupBox>
+                <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" SelectedValuePath="Code3" AutoGenerateColumns="False" Height="523" HorizontalAlignment="Left" Margin="23,6,0,0" Name="Airports_Grid" VerticalAlignment="Top" Width="477" IsEnabled="True" SelectionMode="Single" Grid.Column="1">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="کد 3 رقمی" IsReadOnly="True" Binding="{Binding Code3}"/>
+                        <DataGridTextColumn Header="کد 4 رقمی" IsReadOnly="True" Binding="{Binding Code4}"/>
+                        <DataGridTextColumn Header="نام فارسی" IsReadOnly="True" Binding="{Binding Pers_Name}"/>
+                        <DataGridTextColumn Header="نام انگلیسی" IsReadOnly="True" Binding="{Binding Eng_Name}"/>
+                        <DataGridTextColumn Header="شهر" IsReadOnly="True" Binding="{Binding City}"/>
+                        <DataGridTextColumn Header="نوع فرودگاه" IsReadOnly="True" Binding="{Binding Type}"/>
+                            
+                        </DataGrid.Columns>
+                    </DataGrid>
+                <Button Content="تازه کردن" Visibility="{Binding Path=Access[37], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="81,403,0,0" Name="Airports_Refresh" VerticalAlignment="Top" Click="Airports_Refresh_Click" />
+                <Button Content="افزودن" Visibility="{Binding Path=Access[35], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="125,334,0,0" Name="Airports_Add" VerticalAlignment="Top" Click="Airports_Add_Click" />
+                <Button Content="حذف" Visibility="{Binding Path=Access[34], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="43,334,0,0" Name="Airports_Delete" VerticalAlignment="Top" Click="Airports_Delete_Click" />
+                <Button Content="به روز رسانی" Visibility="{Binding Path=Access[36], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="81,367,0,0" Name="Airports_Update" VerticalAlignment="Top" Click="Airports_Update_Click" />
+            </Grid>
+            </TabItem>
+        <TabItem Header="شرکت هواپیمایی" Name="AirlinesTab" Visibility="{Binding Path=Access[62], Converter={StaticResource BoolToVisConverter}}">
+            <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" SelectedValuePath="Code3" AutoGenerateColumns="False" Height="523" HorizontalAlignment="Left" Margin="280,8,0,0" Name="Airlines_Grid" VerticalAlignment="Top" Width="438" SelectionMode="Single">
+                        <DataGrid.Columns>
+                        <DataGridTextColumn Header="کد 3 رقمی" IsReadOnly="True" Binding="{Binding Code3}"/>
+                        <DataGridTextColumn Header="کد 4 رقمی" IsReadOnly="True" Binding="{Binding Code4}"/>
+                        <DataGridTextColumn Header="نام فارسی" IsReadOnly="True" Binding="{Binding Pers_Name}"/>
+                        <DataGridTextColumn Header="نام انگلیسی" IsReadOnly="True" Binding="{Binding Eng_Name}"/>
+                        <DataGridTextColumn Header="نوع شرکت" IsReadOnly="True" Binding="{Binding Type}"/>
+                        <DataGridTextColumn Header="کشور" IsReadOnly="True" Binding="{Binding Country}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                <GroupBox HorizontalAlignment="Left" Header="شرکت هواپیمایی" Margin="6,0,0,294" Width="234">
+                    <Grid DataContext="{Binding ElementName=Airlines_Grid, Path=SelectedItem}">
+                <TextBox Text="{Binding Code3,Mode=OneWay}"  HorizontalAlignment="Left" Margin="88,10,0,0" Name="Airlines_Cod3" VerticalAlignment="Top" />
+                <Label  Content="کد 3 رقمی" HorizontalAlignment="Left" Margin="10,10,0,0" Name="label36" VerticalAlignment="Top" />
+                <TextBox Text="{Binding Code4,Mode=OneWay}" HorizontalAlignment="Left" Margin="87,48,0,0" Name="Airlines_Code4" VerticalAlignment="Top" />
+                <TextBox Text="{Binding Pers_Name,Mode=OneWay}" HorizontalAlignment="Left" Margin="87,86,0,0" Name="Airlines_Persname" VerticalAlignment="Top" />
+                <TextBox Text="{Binding Eng_Name,Mode=OneWay}" HorizontalAlignment="Left" Margin="87,124,0,0" Name="Airlines_Engname" VerticalAlignment="Top"  />
+                <Label Content="کد 4 رقمی " HorizontalAlignment="Left" Margin="10,48,0,0" Name="label37" VerticalAlignment="Top" />
+                <Label Content="نام فارسی" HorizontalAlignment="Left" Margin="10,86,0,0" Name="label38" VerticalAlignment="Top" />
+                <Label Content="نام انگلیسی" HorizontalAlignment="Left" Margin="10,124,0,0" Name="label39" VerticalAlignment="Top" Width="70" />
+                <ComboBox SelectedValue="{Binding Path=TypeID,Mode=OneWay}" DropDownOpened="Airlines_TypeCombo_DropDownOpened" Name="Airlines_TypeCombo"  DisplayMemberPath="Name" SelectedValuePath="ID" HorizontalAlignment="Left" Margin="87,164,0,0" VerticalAlignment="Top"  />
+                <ComboBox SelectedValue="{Binding Path=CountryID,Mode=OneWay}" DropDownOpened="Airlines_CountryCombo_DropDownOpened" Name="Airlines_CountryCombo"  DisplayMemberPath="Name" SelectedValuePath="ID" HorizontalAlignment="Left" Margin="87,200,0,0" VerticalAlignment="Top"  />
+                        <Label Content="نوع شرکت"  HorizontalAlignment="Left" Margin="10,164,0,0" Name="label1112" VerticalAlignment="Top" />
+                        <Label Content="کشور"  HorizontalAlignment="Left" Margin="10,200,0,0" Name="label13" VerticalAlignment="Top" />
+
+                    </Grid>
+                </GroupBox>
+                <Button Content="تازه کردن" Visibility="{Binding Path=Access[41], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="84,374,0,0" Name="Airlines_Refresh" VerticalAlignment="Top" Click="Airlines_Refresh_Click" />
+                <Button Content="افزودن" Visibility="{Binding Path=Access[39], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="128,305,0,0" Name="Airlines_Add" VerticalAlignment="Top" Click="Airlines_Add_Click" />
+                <Button Content="حذف" Visibility="{Binding Path=Access[38], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="46,305,0,0" Name="Airlines_Delete" VerticalAlignment="Top" Click="Airlines_Delete_Click" />
+                <Button Content="به روز رسانی" Visibility="{Binding Path=Access[40], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="84,338,0,0" Name="Airlines_Update" VerticalAlignment="Top" Click="Airlines_Update_Click" />
+            </Grid>
+            </TabItem>
+        <TabItem   Header="هواپیما" Name="AirplanesTab" Visibility="{Binding Path=Access[51], Converter={StaticResource BoolToVisConverter}}">
+            <Grid >
+                <GroupBox Header="هواپیما" Width="239" HorizontalAlignment="Left" Margin="0,0,0,303">
+                    <Grid DataContext="{Binding ElementName=Airplanes_Grid, Path=SelectedItem}">
+                <Label Content="رجیستر"  HorizontalAlignment="Left" Margin="10,21,0,0" Name="label14" VerticalAlignment="Top" />
+                <Label Content="سریال"  HorizontalAlignment="Left" Margin="10,54,0,0" Name="label15" VerticalAlignment="Top" />
+                <Label Content="تاریخ ساخت"  HorizontalAlignment="Left" Margin="10,90,0,0" Name="label16" VerticalAlignment="Top" />
+                <Label Content="مدل"  HorizontalAlignment="Left" Margin="10,127,0,0" Name="label17" VerticalAlignment="Top" />
+                <Label Content="نوع کاربرد"  HorizontalAlignment="Left" Margin="10,161,0,0" Name="label18" VerticalAlignment="Top" />
+                <Label Content="شرکت صاحب"  HorizontalAlignment="Left" Margin="10,194,0,0" Name="label19" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding Path=Register,Mode=OneWay}" HorizontalAlignment="Left" Margin="87,21,0,0" Name="Airplanes_Register" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding Path=Serial,Mode=OneWay}" HorizontalAlignment="Left" Margin="87,54,0,0" Name="Airplanes_serial" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding Path=Made_Date,Mode=OneWay}" HorizontalAlignment="Left" Margin="87,90,0,0" Name="Airplanes_madeDate" VerticalAlignment="Top" />
+                        <ComboBox SelectedValue="{Binding Path=ModelID,Mode=OneWay}"  DisplayMemberPath="Name" SelectedValuePath="ID" DropDownOpened="Airplanes_ModelCombo_DropDownOpened" HorizontalAlignment="Left" Margin="86,127,0,0" Name="Airplanes_ModelCombo" VerticalAlignment="Top" />
+                        <ComboBox SelectedValue="{Binding Path=UsageID,Mode=OneWay}"  DisplayMemberPath="Name" SelectedValuePath="ID" DropDownOpened="Airplanes_UsageTypeCombo_DropDownOpened"  HorizontalAlignment="Left" Margin="86,161,0,0" Name="Airplanes_UsageTypeCombo" VerticalAlignment="Top" />
+                        <ComboBox SelectedValue="{Binding Path=OwnerID,Mode=OneWay}" DisplayMemberPath="Pers_Name" SelectedValuePath="Code3" DropDownOpened="Airplanes_ownerCombo_DropDownOpened" HorizontalAlignment="Left" Margin="86,194,0,0" Name="Airplanes_ownerCombo" VerticalAlignment="Top" />
+
+                    </Grid>
+                </GroupBox>
+                <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" SelectedValuePath="Register" AutoGenerateColumns="False" Height="523" HorizontalAlignment="Left" Margin="272,6,0,0" Name="Airplanes_Grid" VerticalAlignment="Top" Width="456" SelectionMode="Single">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ثبات" IsReadOnly="True" Binding="{Binding Register}"/>
+                        <DataGridTextColumn Header="سریال" IsReadOnly="True" Binding="{Binding Serial}"/>
+                        <DataGridTextColumn Header="تاریخ ساخت" IsReadOnly="True" Binding="{Binding Made_Date}"/>
+                        <DataGridTextColumn Header="مدل" IsReadOnly="True" Binding="{Binding Model}"/>
+                        <DataGridTextColumn Header="نوع کاربرد" IsReadOnly="True" Binding="{Binding Usage}"/>
+                        <DataGridTextColumn Header="شرکت صاحب" IsReadOnly="True" Binding="{Binding Pers_Name}"/>
+                        <DataGridTextColumn Header="ظرفیت" IsReadOnly="True" Binding="{Binding Capacity}"/>
+                        <DataGridTextColumn Header="وزن" IsReadOnly="True" Binding="{Binding Weight}"/>
+                    </DataGrid.Columns>
+                    </DataGrid>
+
+                 <Button Content="تازه کردن" Visibility="{Binding Path=Access[7], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="78,363,0,0" Name="Airplanes_Refresh" VerticalAlignment="Top" Click="Airplanes_Refresh_Click" />
+                <Button Content="افزودن" Visibility="{Binding Path=Access[5], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="122,293,0,0" Name="Airplanes_Add" VerticalAlignment="Top" Click="Airplanes_Add_Click" />
+                <Button Content="حذف" Visibility="{Binding Path=Access[4], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="40,293,0,0" Name="Airplanes_Delete" VerticalAlignment="Top" Click="Airplanes_Delete_Click" />
+                <Button Content="به روز رسانی" Visibility="{Binding Path=Access[6], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="78,326,0,0" Name="Airplanes_Update" VerticalAlignment="Top" Click="Airplanes_Update_Click" />
+            </Grid>
+            </TabItem>
+        <TabItem Header="مدل هواپیما" Name="AirplaneModelTab" Visibility="{Binding Path=Access[63], Converter={StaticResource BoolToVisConverter}}">
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="365*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="601*" />
+                </Grid.ColumnDefinitions>
+                <GroupBox Width="284" HorizontalAlignment="Left" Header="مدل" Margin="0,0,0,364">
+
+                    <Grid DataContext="{Binding ElementName=AirplaneModel_grid, Path=SelectedItem}">
+                <Label Content="نام"  HorizontalAlignment="Left" Margin="10,8,0,0" Name="label20" VerticalAlignment="Top" />
+                <Label Content="ظرفیت"  HorizontalAlignment="Left" Margin="10,84,0,0" Name="label21" VerticalAlignment="Top" />
+                <Label Content="وزن"  HorizontalAlignment="Left" Margin="10,46,0,0" Name="label22" VerticalAlignment="Top" />
+                <Label Content="حداکثر وزن هنگام بلند شدن"  HorizontalAlignment="Left" Margin="10,122,0,0" Name="label23" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding Path=Name,Mode=OneWay}" HorizontalAlignment="Left" Margin="134,8,0,0" Name="AirplaneModel_name" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding Path=Weight,Mode=OneWay}" HorizontalAlignment="Left" Margin="133,46,0,0" Name="AirplaneModel_weight" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding Path=Capacity,Mode=OneWay}" HorizontalAlignment="Left" Margin="133,84,0,0" Name="AirplaneModel_capacity" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding Path=MTOW,Mode=OneWay}" HorizontalAlignment="Left" Margin="133,122,0,0" Name="AirplaneModel_MTOW" VerticalAlignment="Top" />
+                        
+                    </Grid>
+                </GroupBox>
+                <Button Content="تازه کردن" Visibility="{Binding Path=Access[45], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="91,328,0,0" Name="AirplaneModel_Refresh" VerticalAlignment="Top" Click="AirplaneModel_Refresh_Click" />
+                <Button Content="افزودن" Visibility="{Binding Path=Access[43], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="135,259,0,0" Name="AirplaneModel_add" VerticalAlignment="Top" Click="AirplaneModel_add_Click" />
+                <Button Content="حذف" Visibility="{Binding Path=Access[42], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="53,259,0,0" Name="AirplaneModel_delete" VerticalAlignment="Top" Click="AirplaneModel_delete_Click" />
+                <Button Content="به روز رسانی" Visibility="{Binding Path=Access[44], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="91,292,0,0" Name="AirplaneModel_update" VerticalAlignment="Top" Click="AirplaneModel_update_Click" />
+
+                <DataGrid CanUserAddRows="False" CanUserDeleteRows="False"  SelectedValuePath="ID" AutoGenerateColumns="False" Height="523" HorizontalAlignment="Left" Margin="25,6,0,0" Name="AirplaneModel_grid" VerticalAlignment="Top" Width="404" SelectionMode="Single" Grid.Column="2">
+                        <DataGrid.Columns>
+                        <DataGridTextColumn Header="نام" IsReadOnly="True" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="ظرفیت" IsReadOnly="True" Binding="{Binding Capacity}"/>
+                        <DataGridTextColumn Header="وزن" IsReadOnly="True" Binding="{Binding Weight}"/>
+                        <DataGridTextColumn Header="حداکثر وزن هنگام بلند شدن" IsReadOnly="True" Binding="{Binding MTOW}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        <TabItem Header="مسیرها" Name="RoutesTab" Visibility="{Binding Path=Access[64], Converter={StaticResource BoolToVisConverter}}">
+            <Grid >
+                <GroupBox Header="مسیر" HorizontalAlignment="Left" Width="254" Margin="9,1,0,359">
+                    <Grid DataContext="{Binding ElementName=Routes_grid, Path=SelectedItem}">
+                <Label Content="نام" HorizontalAlignment="Left" Margin="10,12,0,0" Name="label40" VerticalAlignment="Top" />
+                <Label Content="مبدا" HorizontalAlignment="Left" Margin="10,88,0,0" Name="label41" VerticalAlignment="Top" />
+                <Label Content="مسافت" HorizontalAlignment="Left" Margin="10,50,0,0" Name="label42" VerticalAlignment="Top" />
+                <Label Content="مقصد" HorizontalAlignment="Left" Margin="10,124,0,0" Name="label43" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding Path=Name,Mode=OneWay}" HorizontalAlignment="Left" Margin="106,12,0,0" Name="Routes_name" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding Path=Distance,Mode=OneWay}" HorizontalAlignment="Left" Margin="105,50,0,0" Name="Routes_distance" VerticalAlignment="Top" />
+                        <ComboBox SelectedValue="{Binding Path=BeginingID,Mode=OneWay}" DropDownOpened="Routes_beginingCombo_DropDownOpened" DisplayMemberPath="Code3" SelectedValuePath="Code3"  HorizontalAlignment="Left" Margin="105,88,0,0" Name="Routes_beginingCombo" VerticalAlignment="Top"  />
+                        <ComboBox SelectedValue="{Binding Path=DestinationID,Mode=OneWay}" DropDownOpened="Routes_DestinationCombo_DropDownOpened" DisplayMemberPath="Code3" SelectedValuePath="Code3"  HorizontalAlignment="Left" Margin="105,124,0,0" Name="Routes_DestinationCombo" VerticalAlignment="Top" />
+
+                    </Grid>
+                </GroupBox>
+                <DataGrid  CanUserAddRows="False" CanUserDeleteRows="False"  SelectedValuePath="ID" AutoGenerateColumns="False" Height="523" HorizontalAlignment="Left" Margin="313,10,0,0" Name="Routes_grid" SelectionMode="Single" VerticalAlignment="Top" Width="415" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID"  Visibility="Hidden" IsReadOnly="True" Binding="{Binding ID}"/>
+                        <DataGridTextColumn Header="نام" IsReadOnly="True" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="مسافت" IsReadOnly="True" Binding="{Binding Distance}"/>
+                        <DataGridTextColumn Header="مبدا" IsReadOnly="True" Binding="{Binding Begining}"/>
+                        <DataGridTextColumn Header="مقصد" IsReadOnly="True" Binding="{Binding Destination}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button Content="تازه کردن" Visibility="{Binding Path=Access[49], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="84,295,0,0" Name="Routes_Refresh" VerticalAlignment="Top" Click="Routes_Refresh_Click" />
+                <Button Content="افزودن" Visibility="{Binding Path=Access[47], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="128,225,0,0" Name="Routes_Add" VerticalAlignment="Top" Click="Routes_Add_Click" />
+                <Button Content="حذف" Visibility="{Binding Path=Access[46], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="46,225,0,0" Name="Routes_delete" VerticalAlignment="Top" Click="Routes_delete_Click" />
+                <Button Content="به روز رسانی" Visibility="{Binding Path=Access[48], Converter={StaticResource BoolToVisConverter}}" HorizontalAlignment="Left" Margin="84,258,0,0" Name="Routes_update" VerticalAlignment="Top" Click="Routes_update_Click" />
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>

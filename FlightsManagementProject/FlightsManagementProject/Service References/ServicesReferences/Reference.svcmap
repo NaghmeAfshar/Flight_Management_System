@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8a3fa130-ace2-4acd-8640-436cebe38012" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8732/Design_Time_Addresses/BusinessLayer/Service1/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="dedaa4dc-5a26-489d-a2a9-684a745d8a9f" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/BusinessLayer/Service1/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="5003a4f5-d59d-412f-bb01-de1c4c08d369" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/BusinessLayer/Service1/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="b2135f8c-3a18-4665-bfb5-77a780e837aa" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/BusinessLayer/Service1/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="59fd3d9f-96f5-48f3-8a71-649e272f4614" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/BusinessLayer/Service1/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="c362d7da-57da-41d7-9323-4cec32dd769f" SourceId="1" SourceUrl="http://localhost:8732/Design_Time_Addresses/BusinessLayer/Service1/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
