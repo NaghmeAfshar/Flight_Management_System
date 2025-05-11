@@ -1,4 +1,4 @@
-# Flight_Management_System (Database Design Course; Fall 2012)
+# Flight Management System (Database Design Course; Fall 2012)
 
 A software in three-layer architecture which its goal is to manage various information of flights. The project is implemented by C# and SqlServer and benefits from WPF, WCF and Entity Framework.
 How to Run:
